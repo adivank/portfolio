@@ -1,0 +1,7 @@
+.link {
+  font-weight: 900;
+
+  &:hover {
+    transition: color 300ms ease-in-out;
+  }
+}

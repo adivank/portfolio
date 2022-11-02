@@ -1,0 +1,27 @@
+/**
+ * REQUIRED
+ * DO NOT TOUCH!
+ */
+@import "~bootstrap/scss/functions";
+
+$accordion-bg: transparent;
+$accordion-color: var(--body-text-color);
+$accordion-icon-color: var(--body-text-color);
+
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/maps";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/root";
+@import "~bootstrap/scss/utilities";
+@import "~bootstrap/scss/utilities/api";
+
+/**
+ * OPTIONAL
+ * only import required files
+ */
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/containers";
+@import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/helpers";
+@import "~bootstrap/scss/accordion";
+@import "~bootstrap/scss/transitions";

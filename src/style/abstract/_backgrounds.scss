@@ -1,0 +1,30 @@
+:root {
+  --body-bg-color:            #{$black};
+  --body-text-color:          #{$white};
+  --primary-color:            #{$primary};
+  --primary-color-dark:       #{$primary-dark};
+  --body-border-color:        #{color-gray(600)};
+}
+
+body {
+  background-color: var(--body-bg-color);
+  color: var(--body-text-color);
+  border-color: var(--body-border-color);
+}
+
+.link {
+  color: var(--body-text-color);
+
+  &:hover {
+    color: var(--primary-color);
+  }
+}
+
+.header {
+  background-color: var(--body-bg-color);
+  border-bottom-color: var(--body-border-color);
+}
+
+.theme-picker {
+  color: var(--body-text-color);
+}

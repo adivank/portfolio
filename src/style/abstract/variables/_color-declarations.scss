@@ -1,0 +1,50 @@
+$white: #f8faf9;
+$black: #0C151D;
+
+$primary: #DC9596;
+$primary-dark: #c95555;
+$secondary: #BCDBAB;
+
+$grays: () !default;
+$grays: map-merge(
+  (
+    000: #F8FAF9ff,
+    100: #DEE1E1ff,
+    200: #C4C7C8ff,
+    300: #A9AEB0ff,
+    400: #8F9497ff,
+    500: #757B7Fff,
+    600: #5B6166ff,
+    700: #40484Eff,
+    800: #262E35ff,
+    900: #0C151Dff,
+  ),
+  $grays
+);
+
+@function color-gray($shade) {
+  @return map-get($grays, $shade);
+}
+
+.color-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid color-gray(600);
+
+  &-white {
+    background-color: $white;
+  }
+
+  &-black {
+    background-color: $black;
+  }
+
+  &-primary {
+    background-color: $primary;
+  }
+
+  &-secondary {
+    background-color: $secondary;
+  }
+}
