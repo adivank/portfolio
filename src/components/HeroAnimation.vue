@@ -3,111 +3,108 @@
 </template>
 
 <script>
+import DeviceSelector from '@/scripts/DeviceSelector.js'
+
 export default {
-  computed: {
-    canvasHeight() {
-      return document.querySelector('html').clientHeight;
-    },
-    canvasWidth() {
-      return document.querySelector('html').clientWidth;
+  data() {
+    return {
+      numberOfTriangles: 30,
+      triangleSideLength: 45,
+      triangleArray: [],
+      canvasHeight: null,
+      canvasWidth: null
     }
+  },
+  computed: {
   },
   mounted() {
-    const canvas = document.getElementById('heroAnimation');
-    if (canvas.getContext) {
-      const ctx = canvas.getContext("2d");
+    this.canvasHeight = document.querySelector('html').clientHeight;
+    this.canvasWidth = document.querySelector('html').clientWidth;
 
-      let verticalMove = 0;
-      let horizontalMove = 0;
-
-      do {
-        ctx.save();
-        console.log(verticalMove, 'ver');
-        console.log(horizontalMove, 'hor');
-        this.createTriangleSquares(ctx, 5, 40, horizontalMove, verticalMove);
-        horizontalMove = horizontalMove + 5 + 40 + 2.5;
-        if(horizontalMove >= this.canvasWidth) {
-          horizontalMove = 0;
-          verticalMove = verticalMove + 5 + 40 + 2.5;
-        }
-        ctx.translate(horizontalMove, verticalMove)
-        ctx.restore();
-      } while (verticalMove < this.canvasHeight);
+    if (DeviceSelector.getDevice() === 'sm' || DeviceSelector.getDevice() === 'xs') {
+      this.numberOfTriangles = 10;
     }
+
+    if (DeviceSelector.getDevice() === 'md') {
+      this.numberOfTriangles = 15;
+    }
+
+    this.createTriangleArray(this.numberOfTriangles);
+    window.requestAnimationFrame(this.draw);
   },
   methods: {
-    createTriangleSquares(ctx, spacing, sideLength, horizontalMove, verticalMove) {
-        ctx.fillStyle = 'orange';
-        ctx.beginPath()
-        ctx.moveTo(spacing + horizontalMove, spacing + verticalMove);
-        ctx.lineTo(sideLength + spacing + horizontalMove, spacing + verticalMove);
-        ctx.lineTo(spacing + horizontalMove, sideLength + spacing + verticalMove);
-        ctx.fill();
-
-        ctx.fillStyle = 'orange';
-        ctx.beginPath();
-        ctx.moveTo(sideLength + spacing + spacing/2 + horizontalMove, spacing + spacing/2 + verticalMove);
-        ctx.lineTo(spacing + spacing/2 + horizontalMove, sideLength + spacing + spacing/2 + verticalMove);
-        ctx.lineTo(sideLength + spacing + spacing/2 + horizontalMove, sideLength + spacing + spacing/2 + verticalMove);
-        ctx.fill();
-    },
     draw() {
-      let verticalMove = 0;
-      let horizontalMove = 0;
+      const canvas = document.getElementById('heroAnimation');
+      if (canvas.getContext) {
+        const ctx = canvas.getContext("2d");
 
-      do {
-        ctx.save();
-        console.log(verticalMove, 'ver');
-        console.log(horizontalMove, 'hor');
-        this.createTriangleSquares(ctx, 5, 40, horizontalMove, verticalMove);
-        horizontalMove = horizontalMove + 5 + 40 + 2.5;
-        if(horizontalMove >= this.canvasWidth) {
-          horizontalMove = 0;
-          verticalMove = verticalMove + 5 + 40 + 2.5;
+        ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+        // I want to change the size of the triangles programatically
+        // each triangle MUST be sqared and MUST have 2 sides of equal length
+        for(let i = 0; i < this.triangleArray.length; i++) {
+          const { topRightPosition, sideLength} = this.triangleArray[i];
+          let { opacity, opacityStep, direction } = this.triangleArray[i];
+          const { x, y } = topRightPosition;
+
+          if(opacity + opacityStep > 1) {
+            opacityStep *= -1;
+            this.triangleArray[i].opacityStep *= -1;
+          }
+
+          if(opacity + opacityStep < 0) {
+            let newTriangle = this.createTriangle(i);
+            this.triangleArray.splice(i, 1, newTriangle);
+          }
+
+          opacity += opacityStep;
+          this.triangleArray[i].opacity += opacityStep;
+
+          this.drawTriangle(ctx, x, y, sideLength, direction, opacity);
         }
-        ctx.translate(horizontalMove, verticalMove)
-        ctx.restore();
-      } while (verticalMove < this.canvasHeight);
+
+        window.requestAnimationFrame(this.draw);
+      }
+    },
+    drawTriangle(ctx, x, y, sideLength, direction, opacity) {
+      ctx.fillStyle = `rgba(220, 149, 150, ${opacity})`;
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+
+      if(direction === 0) {
+        ctx.lineTo(x - sideLength, y);
+        ctx.lineTo(x, y + sideLength);
+      }
+      
+      if(direction === 1) {
+        ctx.lineTo(x + sideLength, y);
+        ctx.lineTo(x, y + sideLength);
+      }
+
+      if(direction === 2) {
+        ctx.lineTo(x + sideLength, y);
+        ctx.lineTo(x, y - sideLength);
+      }
+      ctx.fill()
+    },
+    createTriangle(i) {
+      return {
+        topRightPosition: {
+          x: Math.ceil(Math.random() * (this.canvasWidth - this.triangleSideLength)),
+          y: Math.ceil(Math.random() * (this.canvasHeight - this.triangleSideLength)),
+        },
+        sideLength: this.triangleSideLength,
+        opacityStep: Math.random() / 50,
+        direction: 'topRight',
+        opacity: i/100,
+        direction: Math.round(Math.random() * 3)
+      }
+    },
+    createTriangleArray(numOfTriangles) {
+      for(let i = 0; i < numOfTriangles; i++) {
+        const triangleObject = this.createTriangle(i);
+        this.triangleArray.push(triangleObject)
+      }
     }
   }
 }
 </script>
-
-<!-- createTriangleSquares(ctx, spacing, sideLength) {
-  let horizontalSpace = 0;
-  let verticalSpace = 0;
-  let horizontalMove = 0;
-  let verticalMove = 0;
-  ctx.save();
-  
-  do {
-    if(horizontalSpace >= this.canvasWidth) {
-      horizontalSpace = 0;
-      horizontalMove = 0;
-      verticalSpace = verticalSpace + spacing + spacing/2;
-      verticalMove = verticalMove + sideLength + spacing + spacing/2;
-      ctx.restore();
-    }
-
-    ctx.fillStyle = 'orange';
-    ctx.beginPath()
-    ctx.moveTo(spacing, spacing);
-    ctx.lineTo(sideLength + spacing, spacing);
-    ctx.lineTo(spacing, sideLength + spacing);
-    ctx.fill();
-
-    ctx.fillStyle = 'orange';
-    ctx.beginPath();
-    ctx.moveTo(sideLength + spacing + spacing/2, spacing + spacing/2);
-    ctx.lineTo(spacing + spacing/2, sideLength + spacing + spacing/2);
-    ctx.lineTo(sideLength + spacing + spacing/2, sideLength + spacing + spacing/2);
-    ctx.fill();
-
-    horizontalSpace = horizontalSpace + sideLength + spacing + spacing/2;
-    horizontalMove = sideLength + spacing + spacing/2;
-
-
-    ctx.translate
-    (horizontalMove, verticalMove);
-  } while (verticalSpace < this.canvasHeight);
-} -->

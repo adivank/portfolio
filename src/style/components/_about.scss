@@ -1,0 +1,19 @@
+.about {
+  &__skill {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--text-lg);
+    cursor: pointer;
+    filter: grayscale(100%);
+    transition: filter 500ms ease-in-out;
+
+    &:hover {
+      filter: grayscale(0%);
+    }
+
+    img {
+      height: 48px;
+    }
+  }
+}

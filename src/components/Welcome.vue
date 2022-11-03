@@ -4,7 +4,7 @@
     <div class="hero d-flex flex-column justify-content-center">
       <div class="row">
         <div class="hero__content">
-          <h1 class="hero__title">Welcome</h1>
+          <h2 class="hero__title">Welcome</h2>
           <p class="hero__text">
             ... to the <span class="fancy-underline">Brain On A Stick</span> playground.
             It is a place where magic happens, used primarily to implement the stuff as I go.

@@ -3,7 +3,6 @@
     <DesignSystem />
     <Welcome />
     <About />
-    <Skills />
   </main>
 </template>
 
@@ -11,9 +10,8 @@
 import DesignSystem from '@/components/DesignSystem.vue';
 import Welcome from '@/components/Welcome.vue';
 import About from '@/components/About.vue';
-import Skills from '@/components/Skills.vue';
 
 export default {
-  components: { DesignSystem, Welcome, About, Skills }
+  components: { DesignSystem, Welcome, About }
 }
 </script>

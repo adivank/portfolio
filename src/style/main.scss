@@ -1,6 +1,7 @@
 @import './vendor/bootstrap';
 
 @import './base/globals';
+@import './base/grid';
 
 @import './abstract/functions';
 @import './abstract/fonts/fonts';
@@ -16,5 +17,6 @@
 @import './components/article';
 @import './components/theme-picker';
 @import './components/hero-animation';
+@import './components/about';
 
 @import './abstract/backgrounds';
