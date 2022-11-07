@@ -1,14 +1,14 @@
 @import './vendor/bootstrap';
 
-@import './base/globals';
-@import './base/grid';
-
 @import './abstract/functions';
 @import './abstract/fonts/fonts';
 @import './abstract/fonts/icons';
 @import './abstract/variables/color';
 @import './abstract/variables/typo';
 @import './abstract/variables/variables';
+
+@import './base/globals';
+@import './base/grid';
 
 @import './components/links';
 @import './components/navigation';
@@ -18,5 +18,9 @@
 @import './components/theme-picker';
 @import './components/hero-animation';
 @import './components/about';
+@import './components/wave';
+@import './components/calculator';
+@import './components/simple-projects';
+@import './components/accordion';
 
 @import './abstract/backgrounds';

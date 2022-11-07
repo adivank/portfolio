@@ -1,0 +1,83 @@
+$calculator-border-radius: 12px;
+
+.calculator {
+  &__display {
+    position: relative;
+    grid-column: span 12;
+    border: 1px solid;
+    margin-bottom: spacing();
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 spacing(3);
+    border-radius: $calculator-border-radius;
+    overflow: hidden;
+    white-space: nowrap;
+
+    &__text {
+      font-size: var(--text-lg);
+      line-height: 1;
+      margin-bottom: 0;
+    }
+
+    &__sign {
+      line-height: 1;
+    }
+
+    &::after {
+      // this is left padding so that numbers don't go out
+      content: '';
+      position: absolute;
+      background-color: var(--body-bg-color);
+      border-radius: $calculator-border-radius 0 0 $calculator-border-radius;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: spacing(3);
+    }
+  }
+
+  &__button {
+    border: none;
+    background-color: transparent;
+    grid-column: span 3;
+    border: 1px solid;
+    border-radius: $calculator-border-radius;
+    box-shadow: 0px 0px 0px 0px #e3e3e3 inset, -4px -5px 8px 0px white inset, -1px 0px 2px 0px #f0f0f0;
+    transition: box-shadow 100ms ease-out;
+
+    &.animating {
+      box-shadow: 5px 3px 7px 0px #e3e3e3 inset, -9px -10px 6px 0px white inset, -1px 0px 6px 0px #f0f0f0;
+    }
+
+    &--sm {
+      aspect-ratio: 1;
+    }
+
+    &--lg {
+      grid-row: span 2;
+
+      &--ver {
+        grid-column: span 6;
+      }
+    }
+  }
+
+  &__text {
+    font-size: var(--text-md);
+  }
+}
+
+@keyframes click {
+  0% {
+    box-shadow: 0px 0px 0px 0px #707070 inset, -4px -5px 8px 0px white inset, -1px 0px 6px 0px #dddddd;
+  }
+
+  50% {
+    box-shadow: 1px 1px 0px 0px #707070 inset, -9px -10px 6px 0px white inset, -1px 0px 6px 0px #dddddd;
+  }
+
+  100% {
+    box-shadow: 0px 0px 0px 0px #707070 inset, -4px -5px 8px 0px white inset, -1px 0px 6px 0px #dddddd;
+  }
+}

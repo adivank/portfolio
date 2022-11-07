@@ -1,9 +1,21 @@
 :root {
-  --body-bg-color:            #{$black};
-  --body-text-color:          #{$white};
-  --primary-color:            #{$primary};
-  --primary-color-dark:       #{$primary-dark};
-  --body-border-color:        #{color-gray(600)};
+  --body-bg-color:                #{$black};
+  --body-bg-color-inverted:       #{$white};
+  --body-text-color:              #{$white};
+  --primary-color:                #{$primary};
+  --primary-color-dark:           #{$primary-dark};
+  --body-border-color:            #{color-gray(600)};
+  --box-shadow:                   0px 4px 12px rgba(var(--body-bg-color), 0.1);
+}
+
+.bg-light {
+  --body-bg-color:                #{$white};
+  --body-bg-color-inverted:       #{$black};
+  --body-text-color:              #{$black};
+  --body-border-color:            #{color-gray(200)};
+  --box-shadow:                   0px 4px 12px rgba(var(--body-bg-color), 0.1);
+
+  color: var(--body-text-color);
 }
 
 body {
@@ -27,4 +39,23 @@ body {
 
 .theme-picker {
   color: var(--body-text-color);
+}
+
+.wave {
+  fill: var(--body-bg-color-inverted);
+  background-color: var(--body-bg-color);
+}
+
+.article {
+  color: var(--body-text-color);
+  box-shadow: 0px 4px 12px rgba(12, 21, 29, 0.1);
+
+  @at-root .bg-light {
+    box-shadow: 0px 4px 12px rgba(248, 250, 249, 0.1);
+  }
+}
+
+.calculator__button,
+.calculator__display {
+  border-color: var(--body-border-color);
 }

@@ -1,8 +1,24 @@
 .article {
-  margin-bottom: spacing(5);
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: 200px;
+  padding: spacing(2);
+
+  &__container {
+    gap: spacing(3);
+  }
 
   &__title {
-    text-align: center;
-    margin-bottom: spacing(3);
+    font-size: var(--text-sm);
+    text-align: start;
+  }
+
+  &__description {
+    font-size: var(--text-xxs);
+  }
+
+  &__image {
+    width: 100%;
+    margin-bottom: spacing(2);
   }
 }
